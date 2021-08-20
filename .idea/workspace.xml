@@ -11,6 +11,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -31,6 +32,12 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="MTHome" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
@@ -55,7 +62,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1629219897036</updated>
-      <workItem from="1629219898746" duration="11943000" />
+      <workItem from="1629219898746" duration="12526000" />
+      <workItem from="1629472951730" duration="13087000" />
     </task>
     <servers />
   </component>

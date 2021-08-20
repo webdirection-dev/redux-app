@@ -1,87 +1,69 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import {createStore} from "redux";
+import {Provider} from "react-redux";
 
-const reducer = (state=0, action) => {
-    // return action.type === 'INC' ? state + 1 : 0;
-    switch (action.type) {
-        case 'INC':
-            return state + 1;
-        case 'DEC':
-            return state - 1;
-        case 'RND':
-            return 0;
-            // return action.value;
-
-        default:
-            return state;
-    }
-};
-
-// Функции креэйторы (Action Creators) чтобы удобнее передавать данные в dispatch
-const inc = () => ({type: 'INC'});
-const dec = () => ({type: 'DEC'});
-const rnd = (value=0) => ({type: "RND", value});
-
-// JS-native. Создаем State вручную
-// let state = reducer(undefined, {});
-// console.log(state);
-//
-// state = reducer(state, {type: 'INC'});
-// console.log(state);
-//
-// state = reducer(state, {type: 'INC'});
-// console.log(state);
-
-// Создаем State с помощью Redux
-// Метод getState - покажет текущее состояние State
-// Метод dispatch - запускает изменения в State
-// Метод subscribe -  подписка на State т.е. колбэк срабатывает при каждом изменении State
+import App from "./components/app.jsx"
+import reducer from "./reducer";
 
 const store = createStore(reducer);
 
-// Теория
-// console.log(store);
-// console.log(store.getState()); // 0
+// Используем <Provider>
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
+
+// Без <Provider>
+// Отрисовываем HTML
+// const updateHTML = () => {
+//     ReactDOM.render(
+//         <Provider store={store}>
+//             <App />
+//         </Provider>,
+//         document.getElementById('root')
+//     );
+// }
+//Первый вызов для первичной отрисовки HTML
+// updateHTML();
+
+// // Плюсуем
+// document
+//     .getElementById('inc')
+//     .addEventListener('click', inc);
 //
-// store.subscribe(() => {
-//     console.log('subscribe', store.getState());
-// });
+// // Минусуем
+// document
+//     .getElementById('dec')
+//     .addEventListener('click', dec);
 //
-// store.dispatch({type: 'INC'});
-// console.log(store.getState()); // 1
-// store.dispatch({type: 'INC'});
-// console.log(store.getState()); // 2
+// // Random либо ноль в зависимости от value
+// document
+//     .getElementById('rnd')
+//     .addEventListener('click', () => {
+//         const value = Math.floor(Math.random() * 10)
+//         rnd(value);
+//     });
 
-// Практика
+// ВРУЧНУЮ Генерируем функции для creators
+// const bindActionCreator = (creator, dispath) => (...args) => {
+//     dispath(creator(...args));
+// };
 
-//Плюсуем
-document
-    .getElementById('inc')
-    .addEventListener('click', () => {
-        store.dispatch(inc());
-    });
+// ПОЧТИ ВРУЧНУЮ
+// Метод bindActionCreators из Redux для генерирования функций
+// const incDispatch = bindActionCreators(inc, dispatch);
+// const decDispatch = bindActionCreators(dec, dispatch);
+// const rndDispatch = bindActionCreators(rnd, dispatch);
 
-// Минусуем
-document
-    .getElementById('dec')
-    .addEventListener('click', () => {
-        store.dispatch(dec());
-    });
-
-// Random
-document
-    .getElementById('random')
-    .addEventListener('click', () => {
-        const value = Math.floor(Math.random() * 10)
-        store.dispatch(rnd(value));
-    });
+// ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ REDUX. Синтаксис ES6 + REDUX для передачи нужных данных
+// Скорее всег будет непонятно и забыто. Нужно пересмотреть урок:
+// https://www.udemy.com/course/javascript_full/learn/lecture/18308310?start=0#content
+// const {inc, dec, rnd} = bindActionCreators( actions, dispatch );
+// где actions это объект из bindActionCreators: { inc: inc, dec: dec, rnd: rnd }
 
 // Подписываемся на изменения STORE
 // т.е. когда store.dispatch изменит STATE, то сработает subscribe(updateHTML)
-store.subscribe(updateHTML);
-
-// Отрисовываем HTML
-function updateHTML () {
-    document
-        .getElementById('counter')
-        .innerHTML = store.getState();
-}
+// store.subscribe(updateHTML);

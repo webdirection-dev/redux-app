@@ -56,14 +56,14 @@ body {
     border-radius: 4px;
 }
 
-#inc {
+.inc {
     background: #089C20;
 }
 
-#dec {
+.dec {
     background: #E7AA10;
 }
 
-#random {
+.rnd {
     background: #CF1C1C;
 }
